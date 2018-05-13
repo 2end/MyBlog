@@ -9,7 +9,7 @@ namespace MyBlog.Models.Account
     public class LoginViewModel
     {
         [Required]
-        public string Name { get; set; }
+        public string Login { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
