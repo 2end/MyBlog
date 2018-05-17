@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Models;
@@ -25,16 +26,15 @@ namespace MyBlog.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> Create(ArticleViewModel model)
+		public async Task<IActionResult> Create(Article article)
 		{
 			if (ModelState.IsValid)
 			{
-				byte[] photo = null;
-				if (model.Photo != null)
+				if (article.FormFile != null)
 				{
-					using (BinaryReader binaryReader = new BinaryReader(model.Photo.OpenReadStream()))
+					using (BinaryReader binaryReader = new BinaryReader(article.FormFile.OpenReadStream()))
 					{
-						photo = binaryReader.ReadBytes((int)model.Photo.Length);
+						article.Photo = binaryReader.ReadBytes((int)article.FormFile.Length);
 					}
 				}
 				else
@@ -43,23 +43,16 @@ namespace MyBlog.Controllers
 					{
 						using (BinaryReader binaryReader = new BinaryReader(fs))
 						{
-							photo = binaryReader.ReadBytes((int)fs.Length);
+							article.Photo = binaryReader.ReadBytes((int)fs.Length);
 						}
 					}
 				}
-				Article article = new Article
-				{
-					Title = model.Title,
-					Text = model.Text,
-					Date = model.Date,
-					Photo = photo
-				};
 				db.Articles.Add(article);
 				await db.SaveChangesAsync();
 				return RedirectToAction("Index", "Home");
 			}
 
-			return View(model);
+			return View(article);
 		}
 
 		[HttpGet]
@@ -93,6 +86,40 @@ namespace MyBlog.Controllers
 			}
 
 			return NotFound();
+		}
+
+		public async Task<IActionResult> Edit(int? id)
+		{
+			if (id != null)
+			{
+				Article article = await db.Articles.FirstOrDefaultAsync(a => a.Id == id);
+				if (article != null)
+				{
+					return View(article);
+				}
+			}
+
+			return NotFound();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(Article article)
+		{
+			if (ModelState.IsValid)
+			{
+				if (article.FormFile != null)
+				{
+					using (BinaryReader binaryReader = new BinaryReader(article.FormFile.OpenReadStream()))
+					{
+						article.Photo = binaryReader.ReadBytes((int)article.FormFile.Length);
+					}
+				}
+				db.Articles.Update(article);
+				await db.SaveChangesAsync();
+				return RedirectToAction("Index", "Home");
+			}
+
+			return View(article);
 		}
     }
 }
