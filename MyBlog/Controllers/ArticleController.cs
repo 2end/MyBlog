@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyBlog.Models;
 using MyBlog.Models.ArticleModels;
 
@@ -60,6 +61,38 @@ namespace MyBlog.Controllers
 
 			return View(model);
 		}
-		
+
+		[HttpGet]
+		[ActionName("Delete")]
+		public async Task<IActionResult> ConfirmDelete(int? id)
+		{
+			if (id != null)
+			{
+				Article article = await db.Articles.FirstOrDefaultAsync(a => a.Id == id);
+				if (article != null)
+				{
+					return View(article);
+				}
+			}
+
+			return NotFound();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Delete(int? id)
+		{
+			if (id != null)
+			{
+				Article article = await db.Articles.FirstOrDefaultAsync(a => a.Id == id);
+				if (article != null)
+				{
+					db.Articles.Remove(article);
+					await db.SaveChangesAsync();
+					return RedirectToAction("Index", "Home");
+				}
+			}
+
+			return NotFound();
+		}
     }
 }
