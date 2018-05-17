@@ -10,9 +10,16 @@ namespace MyBlog.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+		private readonly ApplicationContext db;
+
+		public HomeController(ApplicationContext db)
+		{
+			this.db = db;
+		}
+
+		public IActionResult Index()
         {
-            return View();
+            return View(db.Articles.ToList());
         }
 
         public IActionResult About()

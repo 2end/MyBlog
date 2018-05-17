@@ -5,11 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MyBlog.Models.ArticleModels;
 
 namespace MyBlog.Models
 {
     public class ApplicationContext: IdentityDbContext<User>
     {
-        public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options) { }
+		public DbSet<Article> Articles { get; set; }
+		public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options) { }
     }
 }
