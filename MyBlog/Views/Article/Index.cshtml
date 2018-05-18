@@ -1,0 +1,12 @@
+﻿@model MyBlog.Models.ArticleModels.Article
+@{
+    ViewData["Title"] = "Index";
+}
+<article>
+    <h2>@Model.Title</h2>
+    <h5>@Model.Date</h5>
+    <img alt="Alternate Text" style="width:700px;" src="data:image/jpeg;base64,@(Convert.ToBase64String(@Model.Photo))" />
+    <p>@Model.Text</p>
+</article>
+
+

@@ -20,6 +20,20 @@ namespace MyBlog.Controllers
 			this.db = db;
 		}
 
+		public async Task<IActionResult> Index(int? id)
+		{
+			if (id != null)
+			{
+				Article article = await db.Articles.FirstOrDefaultAsync(a => a.Id == id);
+				if (article != null)
+				{
+					return View(article);
+				}
+			}
+
+			return NotFound();
+		}
+
 		public IActionResult Create()
         {
 			return View();

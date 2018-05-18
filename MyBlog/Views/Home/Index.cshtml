@@ -3,7 +3,9 @@
 @foreach (var article in Model)
 {
 <div>
-    <h2>@article.Title</h2>
+    <h2>
+        <a asp-controller="Article" asp-action="Index" asp-route-id="@article.Id">@article.Title</a>
+    </h2>
     <p>@article.Text</p>
     <img alt="Alternate Text" style="width:200px;" src="data:image/jpeg;base64,@(Convert.ToBase64String(article.Photo))" />
     <p>@article.Date</p>

@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyBlog.Models;
+using MyBlog.Models.ArticleModels;
 
 namespace MyBlog.Controllers
 {
@@ -17,9 +19,27 @@ namespace MyBlog.Controllers
 			this.db = db;
 		}
 
-		public IActionResult Index()
+		private string CutText(string text, int length)
+		{
+			text = text.Substring(0, length);
+			int indexLastWord = text.LastIndexOf(' ');
+			text = text.Remove(indexLastWord);
+			text += "...";
+
+			return text;
+		}
+
+		public async Task<IActionResult> Index()
         {
-            return View(db.Articles.ToList());
+			List<Article> articles = await db.Articles.OrderByDescending(a => a.Date).ToListAsync();
+			foreach (Article article in articles)
+			{
+				if (article.Text.Length > 200)
+				{
+					article.Text = CutText(article.Text, 200);
+				}
+			}
+            return View(articles);
         }
 
         public IActionResult About()
