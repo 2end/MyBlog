@@ -1,15 +1,23 @@
 ﻿@model IEnumerable<MyBlog.Models.ArticleModels.Article>
-<a class="btn btn-success" asp-action="Create" asp-controller="Article">Create Article</a>
-@foreach (var article in Model)
-{
 <div>
-    <h2>
-        <a asp-controller="Article" asp-action="Index" asp-route-id="@article.Id">@article.Title</a>
-    </h2>
-    <p>@article.Text</p>
-    <img alt="Alternate Text" style="width:200px;" src="data:image/jpeg;base64,@(Convert.ToBase64String(article.Photo))" />
-    <p>@article.Date</p>
-    <a class="btn btn-danger" asp-action="Delete" asp-controller="Article" asp-route-id="@article.Id">Delete</a>
-    <a class="btn btn-warning" asp-action="Edit" asp-controller="Article" asp-route-id="@article.Id">Edit</a>
+    <a class="btn btn-success create-acrticle-btn" asp-action="Create" asp-controller="Article">Create Article</a>
 </div>
-}
+
+<div class="home-index-wrapper">
+    @foreach (var article in Model)
+    {
+    <div class="home-index-article-wrapper">
+        <h2>
+            <a class="article-title" asp-controller="Article" asp-action="Index" asp-route-id="@article.Id">@article.Title</a>
+        </h2>
+        <div>
+            <em class="text-muted">Date: @article.Date</em>
+        </div>
+        <img class="img-rounded" alt="Alternate Text" style="width:100%;" src="data:image/jpeg;base64,@(Convert.ToBase64String(article.Photo))" />
+        <p class="article-text">@article.Text</p>
+        <a class="btn btn-danger" asp-action="Delete" asp-controller="Article" asp-route-id="@article.Id">Delete</a>
+        <a class="btn btn-warning" asp-action="Edit" asp-controller="Article" asp-route-id="@article.Id">Edit</a>
+
+    </div>
+    }
+</div>

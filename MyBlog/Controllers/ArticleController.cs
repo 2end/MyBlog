@@ -128,6 +128,11 @@ namespace MyBlog.Controllers
 						article.Photo = binaryReader.ReadBytes((int)article.FormFile.Length);
 					}
 				}
+				else
+				{
+					Article oldArticle = await db.Articles.AsNoTracking().FirstOrDefaultAsync(a => a.Id == article.Id);
+					article.Photo = oldArticle.Photo;
+				}
 				db.Articles.Update(article);
 				await db.SaveChangesAsync();
 				return RedirectToAction("Index", "Home");
