@@ -51,7 +51,8 @@ namespace MyBlog
             }
 
             app.UseResponseCompression();
-            app.UseStaticFiles();
+			app.UseStatusCodePagesWithReExecute("/home/errorstatus/{0}");
+			app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc(routes =>
             {

@@ -19,6 +19,11 @@ namespace MyBlog.Controllers
 			this.db = db;
 		}
 
+		public IActionResult ErrorStatus(string id)
+		{
+			return View("ErrorStatus", id);
+		}
+
 		private string CutText(string text, int length)
 		{
 			text = text.Substring(0, length);
