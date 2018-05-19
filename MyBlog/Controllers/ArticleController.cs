@@ -53,7 +53,7 @@ namespace MyBlog.Controllers
 				}
 				else
 				{
-					using (FileStream fs = new FileStream("wwwroot/images/default.jpg", FileMode.OpenOrCreate))
+					using (FileStream fs = new FileStream("wwwroot/images/default.jpeg", FileMode.OpenOrCreate))
 					{
 						using (BinaryReader binaryReader = new BinaryReader(fs))
 						{

@@ -25,7 +25,9 @@ namespace MyBlog
 				{
 					var userManager = services.GetRequiredService<UserManager<User>>();
 					var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+					var db = services.GetRequiredService<ApplicationContext>();
 					await RoleInitializer.InitializeAsync(userManager, rolesManager);
+					await ArticleInitializer.InitializeAsync(db);
 				}
 				catch (Exception ex)
 				{
