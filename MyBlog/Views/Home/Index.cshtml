@@ -1,25 +1,31 @@
 ﻿@addTagHelper "*, MyBlog"
 @model MyBlog.Models.Home.HomeIndexViewModel
-<div>
-    <a class="btn btn-success create-acrticle-btn" asp-action="Create" asp-controller="Article">Create Article</a>
-</div>
+@if (User.IsInRole("admin"))
+{
+    <div>
+        <a class="btn btn-success create-acrticle-btn" asp-action="Create" asp-controller="Article">Create Article</a>
+    </div>
+}
 
 <div class="home-index-wrapper">
     @foreach (var article in Model.Articles)
     {
-        <div class="home-index-article-wrapper">
-            <h2>
-                <a class="article-title" asp-controller="Article" asp-action="Index" asp-route-id="@article.Id">@article.Title</a>
-            </h2>
-            <div>
-                <em class="text-muted">Date: @article.Date</em>
-            </div>
-            <img class="" alt="Alternate Text" style="width:100%;" src="data:image/jpeg;base64,@(Convert.ToBase64String(article.Photo))" />
-            <p class="article-text">@article.Text</p>
+    <div class="home-index-article-wrapper">
+        <h2>
+            <a class="article-title" asp-controller="Article" asp-action="Index" asp-route-id="@article.Id">@article.Title</a>
+        </h2>
+        <div>
+            <em class="text-muted">Date: @article.Date</em>
+        </div>
+        <img class="" alt="Alternate Text" style="width:100%;" src="data:image/jpeg;base64,@(Convert.ToBase64String(article.Photo))" />
+        <p class="article-text">@article.Text</p>
+        @if (User.IsInRole("admin"))
+        {
             <a class="btn btn-danger" asp-action="Delete" asp-controller="Article" asp-route-id="@article.Id">Delete</a>
             <a class="btn btn-warning" asp-action="Edit" asp-controller="Article" asp-route-id="@article.Id">Edit</a>
-            <a class="btn btn-default article-readmore" asp-controller="Article" asp-action="Index" asp-route-id="@article.Id">Read more</a>
-        </div>
+        }
+        <a class="btn btn-default article-readmore" asp-controller="Article" asp-action="Index" asp-route-id="@article.Id">Read more</a>
+    </div>
     }
 </div>
 <page-link page-model="@Model.PageViewModel" page-action="Index"></page-link>
