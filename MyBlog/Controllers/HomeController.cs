@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Models;
 using MyBlog.Models.ArticleModels;
+using MyBlog.Models.Home;
 
 namespace MyBlog.Controllers
 {
@@ -34,17 +35,27 @@ namespace MyBlog.Controllers
 			return text;
 		}
 
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int page = 1)
         {
-			List<Article> articles = await db.Articles.OrderByDescending(a => a.Date).ToListAsync();
-			foreach (Article article in articles)
+			int pageSize = 4;
+			IQueryable<Article> articles = db.Articles.OrderByDescending(a => a.Date);
+			int count = articles.Count();
+			List<Article> items = await articles.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+			foreach (Article article in items)
 			{
 				if (article.Text.Length > 200)
 				{
 					article.Text = CutText(article.Text, 200);
 				}
 			}
-            return View(articles);
+			PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+			HomeIndexViewModel viewModel = new HomeIndexViewModel
+			{
+				PageViewModel = pageViewModel,
+				Articles = items
+			};
+
+			return View(viewModel);
         }
 
         public IActionResult About()
