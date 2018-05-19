@@ -16,31 +16,31 @@ button:focus {
     outline: none!important;
 }
 
+
 .home-index-wrapper {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     justify-content: space-between;
+    margin: 0px;
 }
 
 .home-index-article-wrapper {
     width: 45%;
-    margin: 20px 0;
-    margin-right: 10px;
-    border: 2px solid #222222;
-    padding: 10px;
-    border-radius: 5%;
+    background-color: #fff;
+    padding: 5px;
 }
 
 /*Article*/
 .article {
     max-width: 700px;
-    border: 2px solid #222222;
     padding: 10px;
-    border-radius: 5%;
     margin-top: 20px;
 }
-.article img{
+.article-readmore{
+    float: right;
+}
+.article img {
     width: 100%;
 }
 h2 a.article-title{
