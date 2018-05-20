@@ -13,7 +13,17 @@ form {
 button,
 button:active,
 button:focus {
-    outline: none!important;
+    outline: none !important;
+}
+
+ul.search {
+    display: flex;
+    align-items: center;
+    margin: 0 5px;
+}
+
+button.search {
+    margin-right: 5px;
 }
 
 
@@ -35,7 +45,8 @@ button:focus {
 .center-wrapper {
     display: flex;
     justify-content: center;
-    margin-top: 20px;x
+    margin-top: 20px;
+    x
 }
 
 /*Article*/
@@ -44,15 +55,19 @@ button:focus {
     padding: 10px;
     margin-top: 20px;
 }
-.article-readmore{
+
+.article-readmore {
     float: right;
 }
+
 .article img {
     width: 100%;
 }
-h2 a.article-title{
+
+h2 a.article-title {
     color: black;
 }
+
 a.create-acrticle-btn {
     margin-top: 20px;
 }
@@ -73,6 +88,7 @@ p.article-text {
 input.input-validation-error {
     border: 1px solid #b94a48;
 }
+
 .validation-summary-errors {
     color: #b94a48;
 }
@@ -109,6 +125,7 @@ input.input-validation-error {
     .carousel-caption {
         display: none;
     }
+
     .home-index-article-wrapper {
         width: 95%;
     }

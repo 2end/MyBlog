@@ -35,10 +35,15 @@ namespace MyBlog.Controllers
 			return text;
 		}
 
-		public async Task<IActionResult> Index(int page = 1)
+		public async Task<IActionResult> Index(string searchText, int page = 1)
         {
 			int pageSize = 4;
 			IQueryable<Article> articles = db.Articles.OrderByDescending(a => a.Date);
+			if (searchText != null)
+			{
+				searchText = searchText.ToLower();
+				articles = articles.Where(a => a.Text.ToLower().Contains(searchText) || a.Title.ToLower().Contains(searchText));
+			}			
 			int count = articles.Count();
 			List<Article> items = await articles.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 			foreach (Article article in items)
