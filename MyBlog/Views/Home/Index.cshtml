@@ -14,10 +14,13 @@
         <h2>
             <a class="article-title" asp-controller="Article" asp-action="Index" asp-route-id="@article.Id">@article.Title</a>
         </h2>
-        <div>
-            <em class="text-muted">Date: @article.Date</em>
-        </div>
-        <img class="" alt="Alternate Text" style="width:100%;" src="data:image/jpeg;base64,@(Convert.ToBase64String(article.Photo))" />
+       <figure class="caption-border">
+            <img class="" alt="Alternate Text" src="data:image/jpeg;base64,@(Convert.ToBase64String(article.Photo))" />
+            <figcaption>
+                Date: @article.Date.DayOfWeek
+                <em class="">@article.Date.ToShortDateString()</em>
+            </figcaption>
+        </figure>
         <p class="article-text">@article.Text</p>
         @if (User.IsInRole("admin"))
         {

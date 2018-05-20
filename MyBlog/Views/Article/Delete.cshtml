@@ -7,11 +7,13 @@
 <div>
     <article class="article">
         <h2>@Model.Title</h2>
-        <div>
-            <em class="text-muted">Date: @Model.Date</em>
-        </div>
-        <img class="" alt="Alternate Text" src="data:image/jpeg;base64,@(Convert.ToBase64String(@Model.Photo))" />
-        <div></div>
+        <figure class="caption-border">
+            <img class="" alt="Alternate Text" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Photo))" />
+            <figcaption>
+                Date: @Model.Date.DayOfWeek
+                <em class="">@Model.Date.ToShortDateString()</em>
+            </figcaption>
+        </figure>
         <p class="article-text">@Model.Text</p>
     </article>
 </div>

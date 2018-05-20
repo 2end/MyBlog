@@ -46,8 +46,33 @@ button.search {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-    x
 }
+
+* {
+    box-sizing: border-box;
+}
+
+.caption-border {
+    width: 100%;
+    margin: 20px auto 0;
+    border: 5px solid #F8F8F8;
+    background: white;
+    padding: 10px;
+}
+
+    .caption-border img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }    
+
+    .caption-border figcaption {
+        padding: 10px;
+        color: #777777;
+        background: #F8F8F8;
+        text-align: center;
+        text-transform: uppercase;
+    }
 
 /*Article*/
 .article {
@@ -60,7 +85,7 @@ button.search {
     float: right;
 }
 
-.article img {
+.article img, .home-index-article-wrapper img {
     width: 100%;
 }
 
