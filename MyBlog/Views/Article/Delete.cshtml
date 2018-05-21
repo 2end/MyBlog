@@ -6,15 +6,7 @@
 <h2>Delete Article</h2>
 <div>
     <article class="article">
-        <h2>@Model.Title</h2>
-        <figure class="caption-border">
-            <img class="" alt="Alternate Text" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Photo))" />
-            <figcaption>
-                Date: @Model.Date.DayOfWeek
-                <em class="">@Model.Date.ToShortDateString()</em>
-            </figcaption>
-        </figure>
-        <p class="article-text">@Model.Text</p>
+        @await Html.PartialAsync("_Article", Model)
     </article>
 </div>
 <form role="form" asp-controller="Article" asp-action="Delete" method="post">
