@@ -57,8 +57,9 @@ namespace MyBlog.Controllers
 			HomeIndexViewModel viewModel = new HomeIndexViewModel
 			{
 				PageViewModel = pageViewModel,
-				Articles = items
+				Articles = items,
 			};
+			ViewBag.searchText = searchText;
 
 			return View(viewModel);
         }

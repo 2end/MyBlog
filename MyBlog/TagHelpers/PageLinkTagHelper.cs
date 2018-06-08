@@ -59,7 +59,7 @@ namespace MyBlog.TagHelpers
 			}
 			else
 			{
-				link.Attributes["href"] = urlHelper.Action(PageAction, new { page = pageNumber });
+				link.Attributes["href"] = urlHelper.Action(PageAction, new { page = pageNumber, searchText = ViewContext.ViewBag.searchText });
 			}
 			link.InnerHtml.Append(pageNumber.ToString());
 			item.InnerHtml.AppendHtml(link);
